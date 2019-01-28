@@ -18,6 +18,7 @@ public class Utils {
 
     static HashMap<String, UserDetails> loadUsersMap(Context context) {
 
+        Log.d(TAG, "Loading users");
         SharedPreferences preferences = context.getSharedPreferences("Users", MODE_PRIVATE);
         String serializedUsers = preferences.getString(USERS_MAP_KEY, "");
 

@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(!duplicateUserExists) {
             usersMap.put(user.username, user);
             Utils.saveUsers(this, usersMap);
+            finish();
         }
     }
 
