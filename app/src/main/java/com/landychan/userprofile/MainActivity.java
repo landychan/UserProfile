@@ -1,14 +1,20 @@
 package com.landychan.userprofile;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.HashMap;
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
+    HashMap<String, UserDetails> usersMap;
     Button buttonLogIn;
     Button buttonRegister;
     EditText editUsername;
@@ -44,6 +50,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void userLogIn(String username, String password) {
+
+        // Reset errors.
+        editUsername.setError(null);
+        editPassword.setError(null);
+
+
+        if(TextUtils.isEmpty(username)) {
+            editUsername.setError(getString(R.string.empty_username));
+        }
+
+        if(TextUtils.isEmpty(password)) {
+            editPassword.setError(getString(R.string.empty_password));
+        }
+
+
+        if(usersMap == null) {
+            usersMap = Utils.loadUsersMap(this);
+        }
+
+        if(usersMap.containsKey(username)) {
+            UserDetails user = usersMap.get(username);
+
+            if(user != null) {
+                if (Objects.equals(password, user.password)) {
+
+                }
+            } else {
+
+                // log in fail
+            }
+        }
 
     }
 }
