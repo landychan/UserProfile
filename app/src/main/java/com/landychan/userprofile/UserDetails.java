@@ -12,8 +12,9 @@ class UserDetails {
     String city;
     String state;
     String zip;
+    String birthdate;
 
-    UserDetails(String username, String password, String email, String firstname, String lastname, String addressone, String addresstwo, String city, String state, String zip) {
+    UserDetails(String username, String password, String email, String firstname, String lastname, String addressone, String addresstwo, String city, String state, String zip, String birthdate) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -24,5 +25,6 @@ class UserDetails {
         this.city = city;
         this.state = state;
         this.zip = zip;
+        this.birthdate = birthdate;
     }
 }
