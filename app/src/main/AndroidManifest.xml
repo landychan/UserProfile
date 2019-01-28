@@ -19,7 +19,7 @@
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".UserInfoActivity"
-            android:label="@string/title_activity_user_info"></activity>
+            android:label="@string/title_activity_user_info" />
     </application>
 
 </manifest>

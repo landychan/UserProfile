@@ -14,6 +14,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Utils {
 
     public static final String USERS_MAP_KEY = "usersmapkey";
+    public static final int UPDATE_USER = 12345;
     private static final String TAG = "Utils";
 
     static HashMap<String, UserDetails> loadUsersMap(Context context) {

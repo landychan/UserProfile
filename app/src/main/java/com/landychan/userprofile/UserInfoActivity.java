@@ -1,5 +1,6 @@
 package com.landychan.userprofile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,7 +17,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
     UserDetails currentUser;
     TextView tvUsername;
-    TextView tvPassword;
+//    TextView tvPassword;
     TextView tvEmail;
     TextView tvFirstName;
     TextView tvLastName;
@@ -26,14 +27,16 @@ public class UserInfoActivity extends AppCompatActivity {
     TextView tvState;
     TextView tvZip;
     Button buttonEdit;
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+        gson = new Gson();
 
         tvUsername = findViewById(R.id.tv_username);
-        tvPassword = findViewById(R.id.tv_password);
+//        tvPassword = findViewById(R.id.tv_password);
         tvEmail = findViewById(R.id.tv_email_address);
         tvFirstName = findViewById(R.id.tv_first_name);
         tvLastName = findViewById(R.id.tv_last_name);
@@ -44,9 +47,35 @@ public class UserInfoActivity extends AppCompatActivity {
         tvZip = findViewById(R.id.tv_zip_code);
         buttonEdit = findViewById(R.id.button_edit);
 
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String serializedUser = gson.toJson(currentUser);
+                Intent editUserIntent = new Intent(UserInfoActivity.this, RegisterActivity.class);
+                editUserIntent.putExtra("edituser", true);
+                editUserIntent.putExtra("userdetails", serializedUser);
+                startActivityForResult(editUserIntent, Utils.UPDATE_USER);
+            }
+        });
         if(getUser()) {
             showUserDetails();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == Utils.UPDATE_USER) {
+            if(resultCode == RESULT_OK) {
+                String serializedUser = intent.getStringExtra("userdetails");
+
+                if (serializedUser != null) {
+                    currentUser = gson.fromJson(serializedUser, UserDetails.class);
+                    showUserDetails();
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+
     }
 
     private void showUserDetails() {
@@ -65,7 +94,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
 
     private boolean getUser() {
-        Gson gson = new Gson();
         String serializedUser = getIntent().getStringExtra("userdetails");
 
         if(serializedUser != null) {
