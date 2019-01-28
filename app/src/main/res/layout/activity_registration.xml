@@ -9,6 +9,7 @@
         android:id="@+id/edit_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:hint="@string/username" />
 
     <EditText
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/first_name"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_email_address"/>
 
     <EditText
@@ -39,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/last_name"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_first_name"/>
 
     <EditText
@@ -46,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/address"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_last_name" />
 
     <EditText
@@ -53,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/address_line_2"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_address" />
 
     <EditText
@@ -60,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/city"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_address_line_two" />
 
     <EditText
@@ -67,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/state"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_city" />
 
     <EditText
@@ -74,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/zip"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/edit_state" />
 
     <Button
