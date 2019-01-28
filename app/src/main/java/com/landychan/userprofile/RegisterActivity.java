@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,9 +14,6 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -29,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     Calendar calendar;
     boolean isEditMode = false;
     Gson gson;
+    ConstraintLayout registerLayout;
     EditText editUsername;
     EditText editPassword;
     EditText editEmail;
@@ -68,12 +67,14 @@ public class RegisterActivity extends AppCompatActivity {
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
+                Utils.hideKeyboard(RegisterActivity.this, registerLayout);
             }
 
         };
 
         usersMap = Utils.loadUsersMap(this);
 
+        registerLayout = findViewById(R.id.layout_register);
         editUsername = findViewById(R.id.edit_username);
         editPassword = findViewById(R.id.edit_password);
         editEmail = findViewById(R.id.edit_email_address);

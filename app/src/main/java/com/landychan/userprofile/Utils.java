@@ -3,6 +3,8 @@ package com.landychan.userprofile;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -47,5 +49,14 @@ public class Utils {
             Log.e(TAG, e.getMessage());
         }
         return true;
+    }
+
+    public static void hideKeyboard(Context context, View view) {
+        try {
+            InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        } catch (Exception e) {
+            Log.w("hideKeyboard", "Couldn't hide keyboard");
+        }
     }
 }

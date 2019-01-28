@@ -73,18 +73,10 @@ public class MainActivity extends AppCompatActivity {
         usersMap = Utils.loadUsersMap(this);
     }
 
-    private void hideKeyboard() {
-        try {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
-        } catch (Exception e) {
-            Log.w("MainActivity", "Couldn't hide keyboard");
-        }
-    }
 
     private void userLogIn() {
 
-        hideKeyboard();
+        Utils.hideKeyboard(this, layout);
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
 
