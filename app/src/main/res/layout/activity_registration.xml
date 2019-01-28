@@ -82,6 +82,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/zip"
         android:singleLine="true"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@id/edit_state" />
 
     <EditText

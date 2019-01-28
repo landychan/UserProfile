@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
                     userDetailsIntent.putExtra("userdetails", serializedUser);
                     startActivity(userDetailsIntent);
                     return;
+                } else {
+                    editPassword.setError(getString(R.string.error_incorrect_password));
                 }
             }
         }

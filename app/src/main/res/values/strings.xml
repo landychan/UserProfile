@@ -30,4 +30,10 @@
     <string name="title_activity_user_info">UserInfoActivity</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="birthdate">Birth Date</string>
+    <string name="first_name_error">First name cannot be empty</string>
+    <string name="last_name_error">Last name cannot be empty</string>
+    <string name="address_line_one_error">Address Line One cannot be empty</string>
+    <string name="city_error">City cannot be empty</string>
+    <string name="state_error">State cannot be empty</string>
+    <string name="zip_code_error">Zip code is invalid</string>
 </resources>

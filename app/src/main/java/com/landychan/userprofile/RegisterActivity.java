@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -115,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resetErrors();
                 String username = editUsername.getText().toString();
                 String password = editPassword.getText().toString();
                 String email = editEmail.getText().toString();
@@ -129,15 +134,111 @@ public class RegisterActivity extends AppCompatActivity {
 
                 UserDetails newUser = new UserDetails(username, password, email, firstname, lastname, addressone, addresstwo, city, state, zip, birthdate);
 
-                if(isEditMode) {
-                    saveUserEdits(newUser);
-                } else {
-                    registerUser(newUser);
+                if(checkAllFieldsValid(newUser)) {
+                    if (isEditMode) {
+                        saveUserEdits(newUser);
+                    } else {
+                        registerUser(newUser);
+                    }
                 }
             }
         });
     }
 
+    private void resetErrors() {
+
+        editUsername.setError(null);
+        editPassword.setError(null);
+        editEmail.setError(null);
+        editFirstName.setError(null);
+        editLastName.setError(null);
+        editAddressOne.setError(null);
+        editAddressTwo.setError(null);
+        editCity.setError(null);
+        editState.setError(null);
+        editZip.setError(null);
+        editBirthdate.setError(null);
+
+    }
+
+    private boolean checkAllFieldsValid(UserDetails user) {
+        boolean hasErrors = false;
+        if(TextUtils.isEmpty(user.username)) {
+            hasErrors = true;
+            editUsername.setError(getString(R.string.empty_username));
+        }
+
+        if(!isPasswordValid(user.password)) {
+            hasErrors = true;
+            editPassword.setError(getString(R.string.empty_password));
+        }
+
+        if(!isEmailValid(user.email)) {
+            hasErrors = true;
+            editEmail.setError(getString(R.string.error_invalid_email));
+        }
+
+        if(TextUtils.isEmpty(user.firstName)) {
+            hasErrors = true;
+            editFirstName.setError(getString(R.string.first_name_error));
+        }
+
+        if(TextUtils.isEmpty(user.lastName)) {
+            hasErrors = true;
+            editLastName.setError(getString(R.string.last_name_error));
+        }
+
+        if(TextUtils.isEmpty(user.addressOne)) {
+            hasErrors = true;
+            editAddressOne.setError(getString(R.string.address_line_one_error));
+        }
+
+        if(TextUtils.isEmpty(user.city)) {
+            hasErrors = true;
+            editCity.setError(getString(R.string.city_error));
+        }
+
+        if(TextUtils.isEmpty(user.state)) {
+            hasErrors = true;
+            editState.setError(getString(R.string.state_error));
+        }
+
+        if(TextUtils.isEmpty(user.zip) || !TextUtils.isDigitsOnly(user.zip)) {
+            hasErrors = true;
+            editZip.setError(getString(R.string.zip_code_error));
+        }
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date d = dateFormat.parse(user.birthdate);
+        } catch (Exception e) {
+            hasErrors = true;
+            editBirthdate.setError("Birth date is invalid");
+        }
+
+
+        return !hasErrors;
+
+    }
+
+    private boolean isEmailValid(String email) {
+        if(email.contains("@")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isPasswordValid(String password) {
+
+        if(password != null) {
+            if (password.length() >= 4) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
     private void registerUser(UserDetails user) {
@@ -145,7 +246,6 @@ public class RegisterActivity extends AppCompatActivity {
         boolean duplicateUserExists = checkDuplicateUser(user.username);
 
         if(!duplicateUserExists) {
-            //check all fields
             usersMap.put(user.username, user);
             Utils.saveUsers(this, usersMap);
             finish();
