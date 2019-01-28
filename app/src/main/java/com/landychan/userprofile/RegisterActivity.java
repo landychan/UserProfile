@@ -211,6 +211,9 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date d = dateFormat.parse(user.birthdate);
+
+            // Trim end of string
+            user.birthdate = user.birthdate.substring(0, 10);
         } catch (Exception e) {
             hasErrors = true;
             editBirthdate.setError("Birth date is invalid");
