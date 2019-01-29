@@ -26,6 +26,8 @@ public class UserInfoActivity extends AppCompatActivity {
     Button buttonEdit;
     Gson gson;
 
+    boolean buttonPressed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,16 +50,25 @@ public class UserInfoActivity extends AppCompatActivity {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String serializedUser = gson.toJson(currentUser);
-                Intent editUserIntent = new Intent(UserInfoActivity.this, RegisterActivity.class);
-                editUserIntent.putExtra("edituser", true);
-                editUserIntent.putExtra("userdetails", serializedUser);
-                startActivityForResult(editUserIntent, Utils.UPDATE_USER);
+                if(!buttonPressed) {
+                    buttonPressed = true;
+                    String serializedUser = gson.toJson(currentUser);
+                    Intent editUserIntent = new Intent(UserInfoActivity.this, RegisterActivity.class);
+                    editUserIntent.putExtra("edituser", true);
+                    editUserIntent.putExtra("userdetails", serializedUser);
+                    startActivityForResult(editUserIntent, Utils.UPDATE_USER);
+                }
             }
         });
         if(getUser()) {
             showUserDetails();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        buttonPressed = false;
     }
 
     @Override

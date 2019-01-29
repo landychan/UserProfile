@@ -129,8 +129,8 @@ public class RegisterActivityEspressoTest {
         onView(withId(R.id.edit_birthdate)).check(matches(hasErrorText(errorInvalidBirthdate)));
 
         // Test invalid format
-        onView(withId(R.id.edit_password)).perform(typeText("tst"), closeSoftKeyboard());
         onView(withId(R.id.edit_email_address)).perform(typeText("testuser" + number + "atgmailcom"), closeSoftKeyboard());
+        onView(withId(R.id.edit_password)).perform(typeText("tst"), closeSoftKeyboard());
         onView(withId(R.id.edit_zip_code)).perform(typeText("1234"), closeSoftKeyboard());
         onView(withId(R.id.button_register)).perform(click());
 
@@ -141,7 +141,7 @@ public class RegisterActivityEspressoTest {
     }
 
     // Helper function to set date in date picker
-    public static void setDate(int year, int monthOfYear, int dayOfMonth) {
+    public void setDate(int year, int monthOfYear, int dayOfMonth) {
         onView(withId(R.id.edit_birthdate)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(year, monthOfYear, dayOfMonth));
         onView(withId(android.R.id.button1)).perform(click());
