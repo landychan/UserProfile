@@ -106,7 +106,7 @@ public class MainActivityEspressoTest {
         Intents.init();
         // Empty password field
         onView(withId(R.id.edit_username))
-                .perform(typeText("test"), closeSoftKeyboard());
+                .perform(typeText("testuser"), closeSoftKeyboard());
         onView(withId(R.id.button_login)).perform(click());
         onView(withId(R.id.edit_password)).check(matches(hasErrorText(errorEmptyPasswordField)));
 
@@ -131,7 +131,7 @@ public class MainActivityEspressoTest {
 
         onView(withId(R.id.edit_password)).perform(clearText(), closeSoftKeyboard());
         onView(withId(R.id.edit_password))
-                .perform(typeText("test"), closeSoftKeyboard());
+                .perform(typeText("testuser"), closeSoftKeyboard());
         onView(withId(R.id.button_login)).perform(click());
         intended(allOf(hasComponent(hasShortClassName(".UserInfoActivity"))));
 
