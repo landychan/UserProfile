@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editUsername;
     EditText editPassword;
     ConstraintLayout layout;
+    boolean pressedButton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER) {
-                    userLogIn();
-                    return true;
+                    if(!pressedButton) {
+                        pressedButton = true;
+                        userLogIn();
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -60,8 +64,12 @@ public class MainActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerActivityIntent = new Intent(MainActivity.this, RegisterActivity.class);
-                MainActivity.this.startActivity(registerActivityIntent);
+
+                if(!pressedButton) {
+                    pressedButton = true;
+                    Intent registerActivityIntent = new Intent(MainActivity.this, RegisterActivity.class);
+                    MainActivity.this.startActivity(registerActivityIntent);
+                }
             }
         });
     }
@@ -71,12 +79,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         usersMap = Utils.loadUsersMap(this);
+        pressedButton = false;
     }
-
 
     private void userLogIn() {
 
+        if(pressedButton) {
+            return;
+        }
         Utils.hideKeyboard(this, layout);
+
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
 
@@ -96,8 +108,10 @@ public class MainActivity extends AppCompatActivity {
             hasErrors = true;
         }
 
-        if(hasErrors)
+        if(hasErrors) {
+            pressedButton = false;
             return;
+        }
 
         if(usersMap == null) {
             usersMap = Utils.loadUsersMap(this);
@@ -125,5 +139,6 @@ public class MainActivity extends AppCompatActivity {
         Snackbar snackbar = Snackbar.make(layout, "Failed to log in...", Snackbar.LENGTH_LONG);
         snackbar.show();
 
+        pressedButton = false;
     }
 }
