@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -204,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
             editState.setError(getString(R.string.state_error));
         }
 
-        if(TextUtils.isEmpty(user.zip) || !TextUtils.isDigitsOnly(user.zip)) {
+        if(TextUtils.isEmpty(user.zip) || !TextUtils.isDigitsOnly(user.zip) || user.zip.length() != 5) {
             hasErrors = true;
             editZip.setError(getString(R.string.zip_code_error));
         }
@@ -252,7 +253,10 @@ public class RegisterActivity extends AppCompatActivity {
         if(!duplicateUserExists) {
             usersMap.put(user.username, user);
             Utils.saveUsers(this, usersMap);
+            setResult(RESULT_OK);
             finish();
+        } else {
+            editUsername.setError(getString(R.string.duplicate_username));
         }
     }
 

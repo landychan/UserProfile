@@ -76,15 +76,6 @@ public class MainActivityEspressoTest {
         onView(withId(R.id.edit_password)).check(matches(withText("PASSWORDTEST")));
     }
 
-//    @Before
-//    public void getString() {
-//        Resources resources = InstrumentationRegistry.getContext().getResources();
-//        errorEmptyUsernameField = resources.getString(R.string.empty_username);
-//        errorEmptyPasswordField = resources.getString(R.string.empty_password);
-//        errorIncorrectPassword = resources.getString(R.string.error_incorrect_password);
-//    }
-
-
     @Test
     public void testUsernameValidation() {
 

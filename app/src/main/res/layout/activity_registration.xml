@@ -84,6 +84,7 @@
         android:hint="@string/zip"
         android:singleLine="true"
         android:inputType="number"
+        android:maxLength="5"
         app:layout_constraintTop_toBottomOf="@id/edit_state" />
 
     <EditText
